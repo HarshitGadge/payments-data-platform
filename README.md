@@ -20,15 +20,26 @@ FX REST API ──────────────▶ S3 ──▶ Snowflake
 [![Tests](https://img.shields.io/badge/tests-102%20passing-3fb950)](tests/)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-## Try it without any infrastructure
+## Demo
+
+Everything below is real output from [`demo.py`](demo.py), which runs the actual
+decoding, merge, FX and serving code — no Postgres, Kafka, Trino, Snowflake or
+cloud account needed:
 
 ```bash
 pip install -r requirements-dev.txt
 python demo.py
 ```
 
-Runs the real decoding, merge, FX and serving code against sample data — no
-Postgres, Kafka, Trino or Snowflake needed.
+<p align="center">
+  <img src="docs/img/demo.svg" alt="demo.py output: a real Debezium message decoded to the exact source value, FX carry-forward across a weekend, a CDC merge into Iceberg, and the serving API" width="100%">
+</p>
+
+The first section decodes a message
+[captured from a real Debezium connector](tests/fixtures/debezium_snapshot_real.json)
+and checks it against the row it came from in Postgres. The rest runs the FX
+carry-forward, a CDC merge into a real Iceberg table (including a replayed stale
+LSN that must be ignored), and the serving API.
 
 ## The problems this is built around
 

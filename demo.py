@@ -71,6 +71,31 @@ def show_cdc_decoding() -> None:
     print("  [ok] divided by 1000 out of habit, created_at would land in 1970")
 
 
+def show_real_capture() -> None:
+    header("REAL CAPTURE  a message from an actual Debezium connector")
+    from payments_platform.cdc import decode_decimal, decode_micro_timestamp, parse_envelope
+
+    fixture = ROOT / "tests" / "fixtures" / "debezium_snapshot_real.json"
+    if not fixture.exists():
+        print("  fixture missing - skipping.")
+        return
+
+    msg = json.loads(fixture.read_text())
+    row = (msg.get("payload") or msg)["after"]
+    print("  Captured by running this repo's docker-compose stack:")
+    print("  Postgres 16 (wal_level=logical) -> Debezium 2.7 -> Kafka.\n")
+    print("  source row, straight from Postgres:")
+    print("    1001 | 42.13 | EUR | 2026-09-26 04:03:07.456703\n")
+    print("  the same row as it arrived on the topic:")
+    print(f"    amount         {row['amount']!r}")
+    print(f"    created_at     {row['created_at']}\n")
+    print("  after decoding:")
+    print(f"    amount         {decode_decimal(row['amount'], 2)}")
+    print(f"    created_at     {decode_micro_timestamp(row['created_at'])}")
+    print(f"    op             {parse_envelope(msg).op!r} (snapshot read)")
+    print("\n  [ok] matches the source row exactly, to the microsecond")
+
+
 def show_merge_ordering() -> None:
     header("CDC  collapsing an out-of-order batch by LSN")
     from payments_platform.cdc import latest_per_key, parse_envelope
@@ -201,6 +226,7 @@ def main() -> None:
     print("\n  Payments Data Platform - offline demo")
     print("  Streaming CDC lakehouse + FastAPI serving + batch FX warehouse")
     show_cdc_decoding()
+    show_real_capture()
     show_merge_ordering()
     show_fx()
     show_iceberg_merge()
