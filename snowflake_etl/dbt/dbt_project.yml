@@ -1,0 +1,33 @@
+name: payments_fx
+version: "1.0.0"
+config-version: 2
+profile: payments_fx
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  payments_fx:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      # Incremental on Snowflake so a daily run touches one partition rather
+      # than rebuilding the full payment history.
+      +materialized: table
+
+seeds:
+  payments_fx:
+    +quote_columns: false
+
+vars:
+  # Currency every payment is normalised to for reporting.
+  reporting_currency: USD
+  # Trailing window an incremental run re-processes. A rate published late
+  # changes the USD value of payments already loaded, so "only new rows" would
+  # leave them converted at a rate that has since been corrected.
+  fx_restatement_days: 7

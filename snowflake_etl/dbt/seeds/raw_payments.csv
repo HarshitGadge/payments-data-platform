@@ -1,0 +1,11 @@
+payment_id,merchant_id,shopper_id,amount,currency,payment_method,payment_status,country_code,created_at
+1001,1,501,149.99,EUR,card,authorized,NL,2026-01-02 10:00:00
+1002,2,502,499.50,USD,paypal,failed,US,2026-01-02 11:00:00
+1003,1,503,89.00,EUR,card,authorized,BE,2026-01-03 12:00:00
+1004,3,504,44.25,GBP,card,authorized,GB,2026-01-03 13:00:00
+1005,1,505,100.00,EUR,card,authorized,NL,2026-01-05 09:00:00
+1006,2,506,250.00,USD,card,authorized,US,2026-01-05 10:00:00
+1007,3,507,75.00,CHF,apple_pay,chargeback,CH,2026-01-05 11:00:00
+1008,1,501,10.00,EUR,card,refunded,NL,2026-01-05 12:00:00
+1009,4,508,60.00,XYZ,card,authorized,ZZ,2026-01-05 13:00:00
+1010,1,509,20.00,EUR,card,authorized,NL,2025-12-01 08:00:00

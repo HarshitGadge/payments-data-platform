@@ -1,0 +1,47 @@
+{
+  "before": {
+    "payment_id": 1001,
+    "merchant_id": 1,
+    "shopper_id": 501,
+    "amount": "EHU=",
+    "currency": "EUR",
+    "payment_method": "card",
+    "payment_status": "authorized",
+    "country_code": "NL",
+    "created_at": 1790395387456703,
+    "updated_at": 1790395387456703
+  },
+  "after": {
+    "payment_id": 1001,
+    "merchant_id": 1,
+    "shopper_id": 501,
+    "amount": "EHU=",
+    "currency": "EUR",
+    "payment_method": "card",
+    "payment_status": "refunded",
+    "country_code": "NL",
+    "created_at": 1790395387456703,
+    "updated_at": 1790395516680298
+  },
+  "source": {
+    "version": "2.7.3.Final",
+    "connector": "postgresql",
+    "name": "cdc",
+    "ts_ms": 1790395516684,
+    "snapshot": "false",
+    "db": "payments",
+    "sequence": "[null,\"28008072\"]",
+    "ts_us": 1790395516684766,
+    "ts_ns": 1790395516684766000,
+    "schema": "public",
+    "table": "payments",
+    "txId": 754,
+    "lsn": 28008072,
+    "xmin": null
+  },
+  "transaction": null,
+  "op": "u",
+  "ts_ms": 1790395517023,
+  "ts_us": 1790395517023318,
+  "ts_ns": 1790395517023318667
+}

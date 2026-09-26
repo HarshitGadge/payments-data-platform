@@ -1,0 +1,33 @@
+{
+  "name": "payments-cdc",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "${env:POSTGRES_USER}",
+    "database.password": "${env:POSTGRES_PASSWORD}",
+    "database.dbname": "payments",
+    "topic.prefix": "cdc",
+    "table.include.list": "public.payments,public.merchants,public.refunds",
+
+    "plugin.name": "pgoutput",
+    "slot.name": "payments_slot",
+    "publication.autocreate.mode": "filtered",
+
+    "snapshot.mode": "initial",
+
+    "_comment_decimal": "precise keeps NUMERIC exact on the wire as a base64 unscaled integer. double would silently round money at the connector, before any of this project's code runs.",
+    "decimal.handling.mode": "precise",
+
+    "_comment_tombstones": "Tombstones are kept so a compacted topic can drop deleted keys. The decoder recognises and skips them rather than counting them as a second delete.",
+    "tombstones.on.delete": "true",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "false",
+
+    "heartbeat.interval.ms": "10000",
+    "_comment_heartbeat": "Without heartbeats, a low-traffic table lets the replication slot's confirmed LSN stall, and Postgres retains WAL segments until the disk fills."
+  }
+}

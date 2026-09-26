@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: stg_payments
+    description: Typed view over the landed payments extract.
+    columns:
+      - name: payment_id
+        description: Primary key from the source ledger.
+        data_tests: [unique, not_null]
+      - name: amount
+        description: Original currency, DECIMAL so cents do not drift.
+        data_tests: [not_null]
+      - name: currency
+        data_tests: [not_null]
+      - name: payment_date
+        data_tests: [not_null]
+
+  - name: stg_fx_rates
+    description: >
+      Published daily rates, units of currency per one base unit. Non-positive
+      rates are discarded in the model rather than tested for: a zero rate would
+      divide by zero downstream.
+    columns:
+      - name: rate
+        data_tests: [not_null]
+      - name: rate_date
+        data_tests: [not_null]
+      - name: currency
+        data_tests: [not_null]
+
+  - name: stg_merchants
+    columns:
+      - name: merchant_id
+        data_tests: [unique, not_null]

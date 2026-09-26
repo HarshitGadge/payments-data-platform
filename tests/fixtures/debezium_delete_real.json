@@ -1,0 +1,36 @@
+{
+  "before": {
+    "payment_id": 1002,
+    "merchant_id": 2,
+    "shopper_id": 502,
+    "amount": "FyY=",
+    "currency": "USD",
+    "payment_method": "paypal",
+    "payment_status": "failed",
+    "country_code": "US",
+    "created_at": 1790391787456703,
+    "updated_at": 1790391787456703
+  },
+  "after": null,
+  "source": {
+    "version": "2.7.3.Final",
+    "connector": "postgresql",
+    "name": "cdc",
+    "ts_ms": 1790395516686,
+    "snapshot": "false",
+    "db": "payments",
+    "sequence": "[\"28016832\",\"28016896\"]",
+    "ts_us": 1790395516686567,
+    "ts_ns": 1790395516686567000,
+    "schema": "public",
+    "table": "payments",
+    "txId": 755,
+    "lsn": 28016896,
+    "xmin": null
+  },
+  "transaction": null,
+  "op": "d",
+  "ts_ms": 1790395517024,
+  "ts_us": 1790395517024227,
+  "ts_ns": 1790395517024227833
+}

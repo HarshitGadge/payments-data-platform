@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: fct_payments_usd
+    description: >
+      Every payment normalised to the reporting currency at the rate effective
+      on its own payment date, not at today's rate.
+    columns:
+      - name: payment_id
+        data_tests: [unique, not_null]
+      - name: amount_usd
+        description: >
+          Null only when no rate applied; such rows are flagged is_unconverted
+          and excluded from revenue totals rather than counted at 1.0.
+      - name: fx_rate
+        description: Units of payment currency per one reporting-currency unit.
+      - name: payment_status
+        data_tests:
+          - accepted_values:
+              values: [authorized, captured, failed, pending, refunded, chargeback, cancelled]
+
+  - name: fct_daily_revenue_usd
+    description: Daily settled revenue per merchant in the reporting currency.
+    columns:
+      - name: revenue_date
+        data_tests: [not_null]
+      - name: merchant_id
+        data_tests: [not_null]
+      - name: gross_amount_usd
+        data_tests: [not_null]
+
+  - name: dim_merchants
+    columns:
+      - name: merchant_id
+        data_tests: [unique, not_null]

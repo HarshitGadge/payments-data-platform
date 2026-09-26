@@ -1,0 +1,29 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+# Secrets. .env.example is committed; .env never is.
+.env
+*.pem
+
+# Local engines and build output
+spark-warehouse/
+metastore_db/
+derby.log
+target/
+dbt_packages/
+logs/
+*.duckdb
+*.duckdb.wal
+jars/
+.DS_Store
+.idea/
+.vscode/
+
+# dbt generates this (anonymous usage id); not project content.
+.user.yml
