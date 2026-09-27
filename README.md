@@ -1,5 +1,7 @@
 # Payments Data Platform
 
+[![tests](https://github.com/HarshitGadge/payments-data-platform/actions/workflows/tests.yml/badge.svg)](https://github.com/HarshitGadge/payments-data-platform/actions/workflows/tests.yml)
+
 A payments data platform running two pipelines over one domain: a **streaming
 CDC lakehouse** for operational analytics, and a **batch FX warehouse** for
 cross-currency financial reporting, with a **FastAPI serving tier** over the
